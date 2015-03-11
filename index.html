@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" ng-app>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>HealthyLinkx</title>
+
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+</head>
+
+<body ng-controller="MainController">
+
+<div class="container" id="Logo">
+	<a href="index.html">
+		<h1><i class="fa fa-user-md"></i>
+		<strong>Healthy</strong>Linkx</h1>
+	</a>
+	<p class="lead">Mapping the healthcare world!</p>
+</div>
+
+<div class="container" id="ProvidersSearch" ng-show="ProvidersSearchVisibility">
+	<legend>Providers Search</legend>
+	<div class="row">
+		<input type="text" class="form-control" id="specialty" placeholder="Type a Medical Specialty">
+		<!-- input type="text" class="form-control" id="specialty" placeholder="Type a Medical Specialty" ng-model="taxonomy" -->
+	</div>
+	<div class="row">
+		<p></p>
+	</div>
+	<div class="row">
+		<input type="text" class="form-control" placeholder="Last Name" ng-model="lastname" maxlength="30" pattern="\w+"> 
+	</div>
+	<div class="row">
+		<p></p>
+	</div>
+	<div class="row">
+		<select class="form-control" ng-model="gender" ng-options="c.name for c in genders"></select>
+	</div>			
+	<div class="row">
+		<p></p>
+	</div>
+	<div class="row">
+		<input type="text" class="form-control" placeholder="Zip Code" ng-model="zipcode" autocomplete="off" maxlength="5" pattern="\d{5}"> 
+	</div>
+	<div class="row">
+		<p></p>
+	</div>
+	<div class="row">
+		<select class="form-control" ng-model="distance" ng-options="c.name for c in distances"></select>
+	</div>
+	<div class="row">
+		<p></p>
+	</div>
+	<div class="row">
+		<button class="btn btn-link" ng-click="searchProviders()">
+			<i class="glyphicon glyphicon-search"></i>&nbsp;Search</button>
+	</div>
+</div>
+
+<div class="container" id="ProvidersList" ng-show="ProvidersListVisibility">
+	<legend>List of Matching Providers</legend>
+	<table class="table table-bordered table-striped">
+		<thead><tr>
+			<th>&nbsp;</th>	
+			<th>Name</th>
+			<th>Street</th>
+			<th>City</th>
+		</tr></thead>
+		<tbody><tr ng-repeat="x in providersList">
+			<td><input type="checkbox" ng-model="x.selected"></td>
+			<td>{{ x.Provider_Full_Name }}</td>
+			<td>{{ x.Provider_Full_Street }}</td>
+			<td>{{ x.Provider_Full_City }}</td>
+			</tr></tbody>	
+	</table>
+	<button class="btn btn-link" ng-click="shortProviderList()">
+		<i class="glyphicon glyphicon-list-alt"></i>&nbsp;Select Providers</button>
+	<button class="btn btn-link" ng-click="newSearch()">
+		<i class="glyphicon glyphicon-search"></i>&nbsp;New Search</button>
+</div>
+
+<div class="container" id="ProvidersShortList" ng-show="ProvidersShortListVisibility">
+	<legend>Short list of Matching Providers</legend>
+	<table class="table table-bordered table-striped">
+		<thead><tr>
+			<th>NPI</th>
+			<th>Name</th>
+			<th>Street</th>
+			<th>City</th>
+			<th>Telephone</th>
+		</tr></thead>
+		<tbody><tr ng-repeat="x in shortProvidersList">
+			<td>{{ x.NPI }}</td>
+			<td>{{ x.Provider_Full_Name }}</td>
+			<td>{{ x.Provider_Full_Street }}</td>
+			<td>{{ x.Provider_Full_City }}</td>
+			<td>{{ x.Provider_Business_Practice_Location_Address_Telephone_Number }}</td>
+		</tr>
+		<tr><td><strong>Transaction number:  </strong>{{Transaction}}</td></tr>
+		</tbody>	
+	</table>
+	<button class="btn btn-link" ng-click="newSearch()">
+		<i class="glyphicon glyphicon-search"></i>&nbsp;New Search</button>
+</div>
+
+<div class="container" id="MessageArea" ng-show="MessageAreaVisibility">
+	<p></p>
+	<div class="alert alert-danger">
+		<span>{{MessageText}}</span>
+	</div>
+</div>
+
+<footer class="footer">
+	<p></p>
+	<div class="container">
+		<p>HealthyLinkx &copy; 2014</p>
+	</div>
+</footer>
+
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script data-require="angular.js@*" data-server="1.3.0-beta.5" 
+		src="https://code.angularjs.org/1.3.0-beta.5/angular.js"></script>
+<script type="text/javascript" src="js/clientcode.js"></script>
+
+</body>
+</html>
